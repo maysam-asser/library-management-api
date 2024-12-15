@@ -1,0 +1,516 @@
+openapi: 3.0.0
+info:
+  title: Library
+  description: >-
+    RESTfull API for library management. The API manages a collection of books,
+    and allows basic CRUD operations related to books and authors.
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:5000
+paths:
+  /books/add:
+    post:
+      tags:
+        - default
+      summary: Add new book
+      description: >-
+        This `add_bbok` endpoint allows adding a new book whose details must be
+        sent in the form of JSON object in the request body.
+
+
+        Request body parameters:
+
+
+        | **Parameter** | Type | **Required** | **Description** |
+
+        | --- | --- | --- | --- |
+
+        | title | string | Y | Book title. |
+
+        | author | string | Y | Book author. |
+
+        | published | int | N | Publication year. |
+
+        | isbn | string | Y | ISBN number. |
+
+        | genre | string | Y | Book category. |
+
+
+        Responses:
+
+
+        | **Status Code** | **Message** |
+
+        | --- | --- |
+
+        | `201` | book added successfully. |
+
+        | `400` | Book title, author and ISBN are required |
+
+        | `400` | Invalid year |
+
+        | `400` | Invalid ISBN |
+
+        | `400` | Book already exists |
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: nn
+                author: ii
+                published: 2022
+                isbn: '9780134966689'
+                genre: Biology
+      responses:
+        '201':
+          description: CREATED
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Werkzeug/3.1.3 Python/3.12.8
+            Date:
+              schema:
+                type: string
+                example: Sat, 14 Dec 2024 09:48:21 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '38'
+            Connection:
+              schema:
+                type: string
+                example: close
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Book added successfully
+        '400':
+          description: BAD REQUEST
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Werkzeug/3.1.3 Python/3.12.8
+            Date:
+              schema:
+                type: string
+                example: Sat, 14 Dec 2024 09:51:25 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '27'
+            Connection:
+              schema:
+                type: string
+                example: close
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Add - invalid year (non int)
+                  value:
+                    message: Invalid year
+                example-1:
+                  summary: Add - invalid year (invalid value)
+                  value:
+                    message: Invalid year
+                example-2:
+                  summary: Add - Book already exists
+                  value:
+                    message: Book already exists
+  /books/index:
+    get:
+      tags:
+        - default
+      summary: Get all books
+      description: The `book/index` endpoint gets all the book collection in the library.
+      responses:
+        '200':
+          description: OK
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Werkzeug/3.1.3 Python/3.12.8
+            Date:
+              schema:
+                type: string
+                example: Sat, 14 Dec 2024 09:53:46 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '421'
+            Connection:
+              schema:
+                type: string
+                example: close
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                bdcf37bd09e348fbb4765c1c540be7b4:
+                  author: Hugh Young
+                  genre: Physics
+                  isbn: '9780134988689'
+                  published: 2020
+                  title: University Physics with Modern Physics 15th Ed.
+                f98fcdace9e9420e82c6c9abf3106ccd:
+                  author: ii
+                  genre: Biology
+                  isbn: '9780134911689'
+                  published: 2020
+                  title: nn
+                fa9f6f06239046c69b04fd51bc7831ca:
+                  author: ii
+                  genre: Biology
+                  isbn: '9780134966689'
+                  published: 2022
+                  title: nn
+  /books/filter:
+    get:
+      tags:
+        - default
+      summary: Filter books
+      description: >-
+        the `filter` endpoint allows searching for books by any of the following
+        parameters: `author`, `genre`, and `year`. If the none of the parameters
+        is provided, it returns the whole collection like the `index` endpoint.
+      responses:
+        '200':
+          description: OK
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Werkzeug/3.1.3 Python/3.12.8
+            Date:
+              schema:
+                type: string
+                example: Sat, 14 Dec 2024 09:58:00 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '176'
+            Connection:
+              schema:
+                type: string
+                example: close
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Filter by 'genre'
+                  value:
+                    - author: ii
+                      genre: Biology
+                      isbn: '9780134911689'
+                      published: 2020
+                      title: nn
+                    - author: ii
+                      genre: Biology
+                      isbn: '9780134966689'
+                      published: 2022
+                      title: nn
+                example-1:
+                  summary: Filter by 'genre' and 'year'
+                  value:
+                    - author: ii
+                      genre: Biology
+                      isbn: '9780134911689'
+                      published: 2020
+                      title: nn
+                example-2:
+                  summary: Filter by 'author'
+                  value:
+                    - author: ii
+                      genre: Biology
+                      isbn: '9780134911689'
+                      published: 2020
+                      title: nn
+                    - author: ii
+                      genre: Biology
+                      isbn: '9780134966689'
+                      published: 2022
+                      title: nn
+                example-3:
+                  summary: Filter by nothing (Get all)
+                  value:
+                    - author: Hugh Young
+                      genre: Physics
+                      isbn: '9780134988689'
+                      published: 2020
+                      title: University Physics with Modern Physics 15th Ed.
+                    - author: ii
+                      genre: Biology
+                      isbn: '9780134911689'
+                      published: 2020
+                      title: nn
+                    - author: ii
+                      genre: Biology
+                      isbn: '9780134966689'
+                      published: 2022
+                      title: nn
+  /books/delete:
+    delete:
+      tags:
+        - default
+      summary: Delete book
+      description: >-
+        The `delete` endpoint allows deleting a book from the book collection by
+        its `ISBN` which provided as a query parameter.
+
+
+        Responses:
+
+
+        | **Status Code** | **Message** |
+
+        | --- | --- |
+
+        | `200` | book deleted successfully. |
+
+        | `400` | Invalid ISBN |
+
+        | `400` | Book not found |
+      parameters:
+        - name: isbn
+          in: query
+          schema:
+            type: integer
+          example: '9780134966611'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Werkzeug/3.1.3 Python/3.12.8
+            Date:
+              schema:
+                type: string
+                example: Sat, 14 Dec 2024 10:01:47 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '40'
+            Connection:
+              schema:
+                type: string
+                example: close
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Book deleted successfully
+        '404':
+          description: NOT FOUND
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Werkzeug/3.1.3 Python/3.12.8
+            Date:
+              schema:
+                type: string
+                example: Sat, 14 Dec 2024 10:04:01 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '29'
+            Connection:
+              schema:
+                type: string
+                example: close
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Book not found
+  /books/update:
+    put:
+      tags:
+        - default
+      summary: Update book
+      description: >-
+        The `update` endpoint allows updating the details of an exisiting book
+        by its `ISBN` provided as a query parameter. A book details could be
+        either fully or partially updeated , meaning that if any of the
+        following fields, title, author, published, or genre, is provided, it
+        will be updated.
+
+
+        Request Body:
+
+
+        | **Parameter** | **Type** | **Required** |
+
+        | --- | --- | --- |
+
+        | title | string | N |
+
+        | author | string | N |
+
+        | published | int | N |
+
+        | genre | string | N |
+
+
+        Response:
+
+
+        | **Status Code** | **Message** |
+
+        | --- | --- |
+
+        | `200` | book updated successfully. |
+
+        | `400` | Invalid year |
+
+        | `400` | Invalid ISBN |
+
+        | `400` | Book not found |
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                published: 2020
+      parameters:
+        - name: isbn
+          in: query
+          schema:
+            type: integer
+          example: '9780134988689'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Werkzeug/3.1.3 Python/3.12.8
+            Date:
+              schema:
+                type: string
+                example: Sat, 14 Dec 2024 10:08:29 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '40'
+            Connection:
+              schema:
+                type: string
+                example: close
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Update multiple fields
+                  value:
+                    message: Book updated successfully
+                example-1:
+                  summary: Update one field
+                  value:
+                    message: Book updated successfully
+        '400':
+          description: BAD REQUEST
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Werkzeug/3.1.3 Python/3.12.8
+            Date:
+              schema:
+                type: string
+                example: Sat, 14 Dec 2024 10:12:00 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '27'
+            Connection:
+              schema:
+                type: string
+                example: close
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Invalid year
+        '404':
+          description: NOT FOUND
+          headers:
+            Server:
+              schema:
+                type: string
+                example: Werkzeug/3.1.3 Python/3.12.8
+            Date:
+              schema:
+                type: string
+                example: Sat, 14 Dec 2024 10:05:01 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '29'
+            Connection:
+              schema:
+                type: string
+                example: close
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Book not found

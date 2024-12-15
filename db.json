@@ -1,0 +1,18 @@
+{
+    "books": {
+        "bdcf37bd09e348fbb4765c1c540be7b4": {
+            "title": "University Physics 15th Edition",
+            "author": "Hugh Young",
+            "published": 2020,
+            "isbn": "9780134988689",
+            "genre": "physics"
+        },
+        "f98fcdace9e9420e82c6c9abf3106ccd": {
+            "title": "nn",
+            "author": "ii",
+            "published": 2020,
+            "isbn": "9780134911689",
+            "genre": "Biology"
+        }
+    }
+}

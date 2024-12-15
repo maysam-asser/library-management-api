@@ -1,0 +1,1031 @@
+{
+    "info": {
+        "_postman_id": "66320e18-3598-409d-970f-82d41233fdee",
+        "name": "Library",
+        "description": "RESTfull API for library management. The API manages a collection of books, and allows basic CRUD operations related to books and authors.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "39002406"
+    },
+    "item": [
+        {
+            "name": "Add new book",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"title\": \"nn\",\r\n    \"author\": \"ii\",\r\n    \"published\": 2022,\r\n    \"isbn\": \"9780134966689\",\r\n    \"genre\": \"Biology\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://127.0.0.1:5000/books/add",
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "5000",
+                    "path": [
+                        "books",
+                        "add"
+                    ]
+                },
+                "description": "This `add_bbok` endpoint allows adding a new book whose details must be sent in the form of JSON object in the request body.\n\nRequest body parameters:\n\n| **Parameter** | Type | **Required** | **Description** |\n| --- | --- | --- | --- |\n| title | string | Y | Book title. |\n| author | string | Y | Book author. |\n| published | int | N | Publication year. |\n| isbn | string | Y | ISBN number. |\n| genre | string | Y | Book category. |\n\nResponses:\n\n| **Status Code** | **Message** |\n| --- | --- |\n| `201` | book added successfully. |\n| `400` | Book title, author and ISBN are required |\n| `400` | Invalid year |\n| `400` | Invalid ISBN |\n| `400` | Book already exists |"
+            },
+            "response": [
+                {
+                    "name": "Add Successfully",
+                    "originalRequest": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"title\": \"nn\",\r\n    \"author\": \"ii\",\r\n    \"published\": 2020,\r\n    \"isbn\": \"9780134911689\",\r\n    \"genre\": \"Biology\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:5000/books/add",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "5000",
+                            "path": [
+                                "books",
+                                "add"
+                            ]
+                        }
+                    },
+                    "status": "CREATED",
+                    "code": 201,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Server",
+                            "value": "Werkzeug/3.1.3 Python/3.12.8"
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Sat, 14 Dec 2024 09:48:21 GMT"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "38"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "close"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "{\n    \"message\": \"Book added successfully\"\n}"
+                },
+                {
+                    "name": "Add - invalid year (non int)",
+                    "originalRequest": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"title\": \"nn\",\r\n    \"author\": \"ii\",\r\n    \"published\": \"w\",\r\n    \"isbn\": \"9780134911689\",\r\n    \"genre\": \"Biology\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:5000/books/add",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "5000",
+                            "path": [
+                                "books",
+                                "add"
+                            ]
+                        }
+                    },
+                    "status": "BAD REQUEST",
+                    "code": 400,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Server",
+                            "value": "Werkzeug/3.1.3 Python/3.12.8"
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Sat, 14 Dec 2024 09:51:25 GMT"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "27"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "close"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "{\n    \"message\": \"Invalid year\"\n}"
+                },
+                {
+                    "name": "Add - invalid year (invalid value)",
+                    "originalRequest": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"title\": \"nn\",\r\n    \"author\": \"ii\",\r\n    \"published\": -1,\r\n    \"isbn\": \"9780134911689\",\r\n    \"genre\": \"Biology\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:5000/books/add",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "5000",
+                            "path": [
+                                "books",
+                                "add"
+                            ]
+                        }
+                    },
+                    "status": "BAD REQUEST",
+                    "code": 400,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Server",
+                            "value": "Werkzeug/3.1.3 Python/3.12.8"
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Sat, 14 Dec 2024 09:52:08 GMT"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "27"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "close"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "{\n    \"message\": \"Invalid year\"\n}"
+                },
+                {
+                    "name": "Add - Book already exists",
+                    "originalRequest": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"title\": \"nn\",\r\n    \"author\": \"ii\",\r\n    \"published\": 2022,\r\n    \"isbn\": \"9780134911689\",\r\n    \"genre\": \"Biology\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:5000/books/add",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "5000",
+                            "path": [
+                                "books",
+                                "add"
+                            ]
+                        }
+                    },
+                    "status": "BAD REQUEST",
+                    "code": 400,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Server",
+                            "value": "Werkzeug/3.1.3 Python/3.12.8"
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Sat, 14 Dec 2024 09:52:56 GMT"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "34"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "close"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "{\n    \"message\": \"Book already exists\"\n}"
+                }
+            ]
+        },
+        {
+            "name": "Get all books",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://127.0.0.1:5000/books/index",
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "5000",
+                    "path": [
+                        "books",
+                        "index"
+                    ]
+                },
+                "description": "The `book/index` endpoint gets all the book collection in the library."
+            },
+            "response": [
+                {
+                    "name": "Gat all",
+                    "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:5000/books/index",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "5000",
+                            "path": [
+                                "books",
+                                "index"
+                            ]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Server",
+                            "value": "Werkzeug/3.1.3 Python/3.12.8"
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Sat, 14 Dec 2024 09:53:46 GMT"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "421"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "close"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "{\n    \"bdcf37bd09e348fbb4765c1c540be7b4\": {\n        \"author\": \"Hugh Young\",\n        \"genre\": \"Physics\",\n        \"isbn\": \"9780134988689\",\n        \"published\": 2020,\n        \"title\": \"University Physics with Modern Physics 15th Ed.\"\n    },\n    \"f98fcdace9e9420e82c6c9abf3106ccd\": {\n        \"author\": \"ii\",\n        \"genre\": \"Biology\",\n        \"isbn\": \"9780134911689\",\n        \"published\": 2020,\n        \"title\": \"nn\"\n    },\n    \"fa9f6f06239046c69b04fd51bc7831ca\": {\n        \"author\": \"ii\",\n        \"genre\": \"Biology\",\n        \"isbn\": \"9780134966689\",\n        \"published\": 2022,\n        \"title\": \"nn\"\n    }\n}"
+                }
+            ]
+        },
+        {
+            "name": "Filter books",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://127.0.0.1:5000/books/filter",
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "5000",
+                    "path": [
+                        "books",
+                        "filter"
+                    ]
+                },
+                "description": "the `filter` endpoint allows searching for books by any of the following parameters: `author`, `genre`, and `year`. If the none of the parameters is provided, it returns the whole collection like the `index` endpoint."
+            },
+            "response": [
+                {
+                    "name": "Filter by 'genre'",
+                    "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:5000/books/filter?genre=Biology",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "5000",
+                            "path": [
+                                "books",
+                                "filter"
+                            ],
+                            "query": [
+                                {
+                                    "key": "genre",
+                                    "value": "Biology"
+                                }
+                            ]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Server",
+                            "value": "Werkzeug/3.1.3 Python/3.12.8"
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Sat, 14 Dec 2024 09:58:00 GMT"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "176"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "close"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "[\n    {\n        \"author\": \"ii\",\n        \"genre\": \"Biology\",\n        \"isbn\": \"9780134911689\",\n        \"published\": 2020,\n        \"title\": \"nn\"\n    },\n    {\n        \"author\": \"ii\",\n        \"genre\": \"Biology\",\n        \"isbn\": \"9780134966689\",\n        \"published\": 2022,\n        \"title\": \"nn\"\n    }\n]"
+                },
+                {
+                    "name": "Filter by 'genre' and 'year'",
+                    "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:5000/books/filter?genre=Biology&year=2020",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "5000",
+                            "path": [
+                                "books",
+                                "filter"
+                            ],
+                            "query": [
+                                {
+                                    "key": "genre",
+                                    "value": "Biology"
+                                },
+                                {
+                                    "key": "year",
+                                    "value": "2020"
+                                }
+                            ]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Server",
+                            "value": "Werkzeug/3.1.3 Python/3.12.8"
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Sat, 14 Dec 2024 09:59:10 GMT"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "89"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "close"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "[\n    {\n        \"author\": \"ii\",\n        \"genre\": \"Biology\",\n        \"isbn\": \"9780134911689\",\n        \"published\": 2020,\n        \"title\": \"nn\"\n    }\n]"
+                },
+                {
+                    "name": "Filter by 'author'",
+                    "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:5000/books/filter?author=ii",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "5000",
+                            "path": [
+                                "books",
+                                "filter"
+                            ],
+                            "query": [
+                                {
+                                    "key": "author",
+                                    "value": "ii"
+                                }
+                            ]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Server",
+                            "value": "Werkzeug/3.1.3 Python/3.12.8"
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Sat, 14 Dec 2024 10:00:00 GMT"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "176"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "close"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "[\n    {\n        \"author\": \"ii\",\n        \"genre\": \"Biology\",\n        \"isbn\": \"9780134911689\",\n        \"published\": 2020,\n        \"title\": \"nn\"\n    },\n    {\n        \"author\": \"ii\",\n        \"genre\": \"Biology\",\n        \"isbn\": \"9780134966689\",\n        \"published\": 2022,\n        \"title\": \"nn\"\n    }\n]"
+                },
+                {
+                    "name": "Filter by nothing (Get all)",
+                    "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:5000/books/filter",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "5000",
+                            "path": [
+                                "books",
+                                "filter"
+                            ]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Server",
+                            "value": "Werkzeug/3.1.3 Python/3.12.8"
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Sat, 14 Dec 2024 10:00:24 GMT"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "316"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "close"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "[\n    {\n        \"author\": \"Hugh Young\",\n        \"genre\": \"Physics\",\n        \"isbn\": \"9780134988689\",\n        \"published\": 2020,\n        \"title\": \"University Physics with Modern Physics 15th Ed.\"\n    },\n    {\n        \"author\": \"ii\",\n        \"genre\": \"Biology\",\n        \"isbn\": \"9780134911689\",\n        \"published\": 2020,\n        \"title\": \"nn\"\n    },\n    {\n        \"author\": \"ii\",\n        \"genre\": \"Biology\",\n        \"isbn\": \"9780134966689\",\n        \"published\": 2022,\n        \"title\": \"nn\"\n    }\n]"
+                }
+            ]
+        },
+        {
+            "name": "Delete book",
+            "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                    "raw": "http://127.0.0.1:5000/books/delete?isbn=9780134966611",
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "5000",
+                    "path": [
+                        "books",
+                        "delete"
+                    ],
+                    "query": [
+                        {
+                            "key": "isbn",
+                            "value": "9780134966611"
+                        }
+                    ]
+                },
+                "description": "The `delete` endpoint allows deleting a book from the book collection by its `ISBN` which provided as a query parameter.\n\nResponses:\n\n| **Status Code** | **Message** |\n| --- | --- |\n| `200` | book deleted successfully. |\n| `400` | Invalid ISBN |\n| `400` | Book not found |"
+            },
+            "response": [
+                {
+                    "name": "Deleted Successfully",
+                    "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:5000/books/delete?isbn=9780134966689",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "5000",
+                            "path": [
+                                "books",
+                                "delete"
+                            ],
+                            "query": [
+                                {
+                                    "key": "isbn",
+                                    "value": "9780134966689"
+                                }
+                            ]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Server",
+                            "value": "Werkzeug/3.1.3 Python/3.12.8"
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Sat, 14 Dec 2024 10:01:47 GMT"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "40"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "close"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "{\n    \"message\": \"Book deleted successfully\"\n}"
+                },
+                {
+                    "name": "Delete - book not found",
+                    "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "http://127.0.0.1:5000/books/delete?isbn=9780134966611",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "5000",
+                            "path": [
+                                "books",
+                                "delete"
+                            ],
+                            "query": [
+                                {
+                                    "key": "isbn",
+                                    "value": "9780134966611"
+                                }
+                            ]
+                        }
+                    },
+                    "status": "NOT FOUND",
+                    "code": 404,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Server",
+                            "value": "Werkzeug/3.1.3 Python/3.12.8"
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Sat, 14 Dec 2024 10:04:01 GMT"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "29"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "close"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "{\n    \"message\": \"Book not found\"\n}"
+                }
+            ]
+        },
+        {
+            "name": "Update book",
+            "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"published\": 2020\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "http://127.0.0.1:5000/books/update?isbn=9780134988689",
+                    "protocol": "http",
+                    "host": [
+                        "127",
+                        "0",
+                        "0",
+                        "1"
+                    ],
+                    "port": "5000",
+                    "path": [
+                        "books",
+                        "update"
+                    ],
+                    "query": [
+                        {
+                            "key": "isbn",
+                            "value": "9780134988689"
+                        }
+                    ]
+                },
+                "description": "The `update` endpoint allows updating the details of an exisiting book by its `ISBN` provided as a query parameter. A book details could be either fully or partially updeated , meaning that if any of the following fields, title, author, published, or genre, is provided, it will be updated.\n\nRequest Body:\n\n| **Parameter** | **Type** | **Required** |\n| --- | --- | --- |\n| title | string | N |\n| author | string | N |\n| published | int | N |\n| genre | string | N |\n\nResponse:\n\n| **Status Code** | **Message** |\n| --- | --- |\n| `200` | book updated successfully. |\n| `400` | Invalid year |\n| `400` | Invalid ISBN |\n| `400` | Book not found |"
+            },
+            "response": [
+                {
+                    "name": "Update - book not found",
+                    "originalRequest": {
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"title\": \"University Physics with Modern Physics 15th Ed.\",\r\n    \"genre\": \"physics\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:5000/books/update?isbn=9780134999689",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "5000",
+                            "path": [
+                                "books",
+                                "update"
+                            ],
+                            "query": [
+                                {
+                                    "key": "isbn",
+                                    "value": "9780134999689"
+                                }
+                            ]
+                        }
+                    },
+                    "status": "NOT FOUND",
+                    "code": 404,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Server",
+                            "value": "Werkzeug/3.1.3 Python/3.12.8"
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Sat, 14 Dec 2024 10:05:01 GMT"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "29"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "close"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "{\n    \"message\": \"Book not found\"\n}"
+                },
+                {
+                    "name": "Update multiple fields",
+                    "originalRequest": {
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"title\": \"University Physics 15th Edition\",\r\n    \"genre\": \"physics\",\r\n    \"published\": 2021\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:5000/books/update?isbn=9780134988689",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "5000",
+                            "path": [
+                                "books",
+                                "update"
+                            ],
+                            "query": [
+                                {
+                                    "key": "isbn",
+                                    "value": "9780134988689"
+                                }
+                            ]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Server",
+                            "value": "Werkzeug/3.1.3 Python/3.12.8"
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Sat, 14 Dec 2024 10:08:29 GMT"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "40"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "close"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "{\n    \"message\": \"Book updated successfully\"\n}"
+                },
+                {
+                    "name": "Update - Invalid year",
+                    "originalRequest": {
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"published\": 2090\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:5000/books/update?isbn=9780134988689",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "5000",
+                            "path": [
+                                "books",
+                                "update"
+                            ],
+                            "query": [
+                                {
+                                    "key": "isbn",
+                                    "value": "9780134988689"
+                                }
+                            ]
+                        }
+                    },
+                    "status": "BAD REQUEST",
+                    "code": 400,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Server",
+                            "value": "Werkzeug/3.1.3 Python/3.12.8"
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Sat, 14 Dec 2024 10:12:00 GMT"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "27"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "close"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "{\n    \"message\": \"Invalid year\"\n}"
+                },
+                {
+                    "name": "Update one field",
+                    "originalRequest": {
+                        "method": "PUT",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"published\": 2020\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://127.0.0.1:5000/books/update?isbn=9780134988689",
+                            "protocol": "http",
+                            "host": [
+                                "127",
+                                "0",
+                                "0",
+                                "1"
+                            ],
+                            "port": "5000",
+                            "path": [
+                                "books",
+                                "update"
+                            ],
+                            "query": [
+                                {
+                                    "key": "isbn",
+                                    "value": "9780134988689"
+                                }
+                            ]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Server",
+                            "value": "Werkzeug/3.1.3 Python/3.12.8"
+                        },
+                        {
+                            "key": "Date",
+                            "value": "Sat, 14 Dec 2024 10:12:39 GMT"
+                        },
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "key": "Content-Length",
+                            "value": "40"
+                        },
+                        {
+                            "key": "Connection",
+                            "value": "close"
+                        }
+                    ],
+                    "cookie": [],
+                    "body": "{\n    \"message\": \"Book updated successfully\"\n}"
+                }
+            ]
+        }
+    ]
+}
